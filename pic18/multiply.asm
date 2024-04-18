@@ -1,0 +1,30 @@
+MULTIPLY TWO NUMBERS USING PIC18 ASSEMBLY
+ORG 0x0000
+START:
+    movlw ox0A;
+    movwf NUM1;
+    movlw 0x0B;
+    movlw NUM2;
+    call MULTIPLY;
+END_PROGRAM:
+    NOP
+
+MULTIPLY:
+    CLRF REG_PRODUCT;
+    CLRF REG_TEMP;
+    LOOP:
+        BTFSC NUM2, 0;
+        ADDWF REG_PRODUCT, F;
+        RRF REG_PRODUCT, F;
+        RRF REG_TEMP, F;
+        DECFSZ NUM2, F;
+        GOTO LOOP;
+    RETURN
+
+NUM1 EQU 0x20;
+NUM2 EQU 0x21;
+REG_PRODUCT EQU 0x22;
+REG_TEMP EQU 0x23;
+END
+
+
